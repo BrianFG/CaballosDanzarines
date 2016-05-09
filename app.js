@@ -98,7 +98,7 @@ console.log('Este programa se distribuye sin garantía alguna.');
 console.log();
 
 // Conexión a base de datos MongoDB.
-mongoose.connect('mongodb://localhost/gato');
+mongoose.connect('mongodb://localhost/caballos');
 mongoose.connection.on('open', () => {
   console.log('Conectado a MongoDB');
 });

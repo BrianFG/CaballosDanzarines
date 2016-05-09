@@ -16,18 +16,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+@font-face {
+    font-family: thrones;
+    src: url('/fonts/Game of Thrones.ttf'); 
+}
+
+@font-face {
+    font-family: digit;
+    src: url('/fonts/DS-DIGI.TTF'); 
+}
+
+@font-face {
+    font-family: hay-maker;
+    src: url('/fonts/Haymaker.ttf'); 
+}
+
+
 
 body {
     margin: 20px;
     font-family: sans-serif;
-    background-color: White;
-    color: Black;
 }
 
 h1 {
     margin-top: 15px;
     margin-bottom: 0px;
-    font-size: 200%;
+    font-size: 3.3em;
+    font-family: thrones;
+    text-align: center;
+    border-bottom: 1px solid #FFF;
 }
 
 h2 {
@@ -96,4 +113,59 @@ footer {
 
 #seccion_mensajes {
     min-height: 120px;
+}
+
+#botones-inicio{
+    padding-top: 15px;
+}
+
+#botones-inicio input{
+    margin-top: 6px;
+    margin-left: 3px;
+
+}
+
+#imagen-inicio{
+    text-align: center;
+}
+
+#principal{
+    margin-top: 25px;
+}
+
+#nuevo-juego{
+    margin-top: 35px;
+    font-size: 1.5em
+}
+#seccion-union{
+    text-align: center;
+    margin-top: 40px;
+    padding: 5px;
+    font-size:  1.5em;
+}
+
+#juego{
+    margin-top: 35px;
+}
+
+#mensaje-juego{
+    font-family: digit;
+    font-size: 2em;
+    padding: 3px;
+}
+
+#turno{
+    margin-bottom: 15px;
+    padding: 3px;
+    font-size: 2.1em;
+    font-family: hay-maker;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  color: #27ae60;
 }

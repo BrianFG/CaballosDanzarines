@@ -82,8 +82,8 @@ router.post('/caballos/crear_juego/', (req, res) => {
   console.log()
   let resultado = { creado: false, codigo: 'invalido' };
   let nombre = req.body.nombre;
-  var n = Math.floor(getRandomArbitrary(4,10));
-  var m = Math.floor(getRandomArbitrary(4,10));
+  var n = req.body.n;
+  var m = req.body.m;
   let juego;
   let jugador;
 

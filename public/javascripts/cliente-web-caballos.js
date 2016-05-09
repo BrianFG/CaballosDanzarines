@@ -28,6 +28,8 @@ var indices_actuales;
 //------------------------------------------------------------------------------
 $(document).ready(function () {
   $('#nuevo-juego').addClass('hidden');
+  $('#seccion-union').addClass('hidden');
+  $('#nuevo-juego').addClass('hidden');
 
   //----------------------------------------------------------------------------
   $('.regresar_al_menu').click(menuPrincipal);
@@ -38,6 +40,7 @@ $(document).ready(function () {
   //----------------------------------------------------------------------------
   $('#creacion-juego').click(function () {
     $('#nuevo-juego').removeClass('hidden');
+    $('#principal').addClass('hidden');
   });
 
   //----------------------------------------------------------------------------
@@ -52,6 +55,7 @@ $(document).ready(function () {
       success: function (resultado) {
         if (resultado.unido) {
           simbolo = resultado.simbolo;
+          $("#seccion-union").addClass("hidden");
           dibujarTablero(resultado.tablero);
           esperaTurno();
         }
@@ -69,7 +73,7 @@ $(document).ready(function () {
       error: errorConexion,
       success: function (resultado) {
         if (resultado.length === 0) {
-            //mensaje no juegos
+            alerta("Error" , "No hay juegos disponibles");
         } else {
           var lista = $('#lista-juegos');
               $.each(resultado, function (i, x) {
@@ -80,6 +84,9 @@ $(document).ready(function () {
           });
 
           $(".selectpicker").selectpicker('refresh');
+          $('#seccion-union').removeClass('hidden');
+          $('#principal').addClass('hidden');
+
         }
       }
     });
@@ -125,44 +132,51 @@ $(document).ready(function () {
   function continuarCrearJuego() {
 
     var nombre = $('#nombre-juego').val().trim();
-    alert(nombre);
+    var n = $('#n').val();
+    var m = $('#m').val();
 
     if (nombre === '') {
-      mensajeError('El nombre del juego no puede quedar vacío.');
+      alerta("Error", 'El nombre del juego no puede quedar vacío.');
     } else {
       $.ajax({
         url: '/caballos/crear_juego/',
         type: 'POST',
         dataType: 'json',
         data: {
-          nombre: nombre
+          nombre: nombre,
+          n : n,
+          m : m
         },
         error: errorConexion,
         success: function (resultado) {
-          var texto;
+          var texto, title;
           if (resultado.creado) {
             simbolo = resultado.simbolo;
             simbolo = resultado.simbolo;
             dibujarTablero(resultado.tablero);
             tablero2 = resultado.tablero;
+            $('#nuevo-juego').addClass('hidden');
             esperaTurno();
           } else {
             switch (resultado.codigo) {
 
             case 'duplicado':
+              title = "Juego Duplicado";
               texto = 'Alguien más ya creó un juego con este ' +
                 'nombre: <em>' + escaparHtml(nombre) + '</em>';
               break;
 
             case 'invalido':
+              title = "Error";
               texto = 'No se proporcionó un nombre de juego válido.';
               break;
 
             default:
+              title = "Error";
               texto = 'Error desconocido.';
               break;
             }
-            mensajeError(texto);
+            alerta(title, texto);
           }
         }
       });
@@ -170,6 +184,11 @@ $(document).ready(function () {
     return false; // Se requiere para evitar que la forma haga un "submit".
   }
 
+function alerta(title, texto){
+  $("#mod-title").html(title);
+  $("#mod-msg").html(texto);
+  $("#alerta").modal("show");
+}
   //----------------------------------------------------------------------------
   function desactivar(tablero) {
     recorreTablero(tablero, function (c, i, j) {
@@ -190,8 +209,7 @@ $(document).ready(function () {
 
   //----------------------------------------------------------------------------
   function errorConexion() {
-    alert("no pudo");
-    mensajeError('No es posible conectarse al servidor.');
+    alerta("Error de servidor" , 'No es posible conectarse al servidor.');
   }
 
   //----------------------------------------------------------------------------
@@ -208,7 +226,8 @@ $(document).ready(function () {
     $('body').css('cursor', 'wait');
 
     function ticToc() {
-      $('#mensaje_3').html('Llevas ' + segundos + ' segundo' +
+      $("#turno").html("Espere su turno").css("color", "#e74c3c");
+      $('#mensaje-juego').html('Llevas ' + segundos + ' segundo' +
         (segundos === 1 ? '' : 's') + ' esperando.');
       segundos++;
       $.ajax({
@@ -250,7 +269,9 @@ $(document).ready(function () {
     $('body').css('cursor', 'auto');
     var alerta = $('<div>', {class: 'alert alert-' + tipo});
     alerta.html(mensaje);
-    $('#mensaje-juego').html(alerta);
+    var button = $('<button>', {class : "btn btn-warning btn-lg" , onclick : 'location.reload();' , text: "Regresar"})
+    $('#mensaje-juego').html(alerta).append(button);
+    $("#turno").html("");
   }
 
   //----------------------------------------------------------------------------
@@ -316,7 +337,6 @@ $(document).ready(function () {
   //----------------------------------------------------------------------------
   function tirable(nombre, ren, col) {
     $(nombre).click(function () {
-      alert("tirar en " + ren + " , " + col);
       $.ajax({
         url: '/caballos/tirar/',
         type: 'PUT',
@@ -343,8 +363,7 @@ $(document).ready(function () {
 
   function turnoTirar(tablero) {
     $('body').css('cursor', 'auto');
-    $('#mensaje_1').html('Es tu turno.');
-    $('#mensaje_3').html('');
+    $("#turno").html("Es tu turno").css("color", "#2ecc71");
     activar(tablero);
   }
 

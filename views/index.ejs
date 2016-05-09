@@ -2,7 +2,7 @@
 /*******************************************************************************
  * Juego de caballos distribuido
  * Aplicación de página única (SPA: Single-Page Application).
- * Copyright (C) 2013-2016 por Ariel Ortiz
+ * Copyright (C) Alejandro Rojas and Brian Flores
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Juego de caballos</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap-dark.css" />
     <link rel="stylesheet" href="/stylesheets/cliente-web-caballos.css" />
         <link rel="stylesheet" href="/stylesheets/hover.css" />
 
@@ -48,13 +48,39 @@
   </head>
 
   <body>
+
+<div id="alerta" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="mod-title"></h4>
+      </div>
+      <div class="modal-body" id="mod-msg">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
   <div class="container">
 
     <h1>Caballos danzarines</h1>
     
     <div id="principal">
-    <input id="creacion-juego" type="button" class="btn btn-sm btn-info" value="Crear Juego"/>
-    <input id="union-juego" type="button" class="btn btn-sm btn-primary" value="Unirse a Partida"/>
+    <div class="col-md-2 col-sm-12" id="imagen-inicio">
+      <img src="/images/caballo.jpeg" height="180" class="img-circle" />
+    </div>
+    <div class="col-md-4  col-sm-12" id="botones-inicio">
+    <div class="col-sm-12">
+      <input id="creacion-juego" type="button" class="btn btn-lg btn-block btn-info" value="Crear Juego"/>     
+    </div>
+    <div class="col-sm-12">
+      <input id="union-juego" type="button" class="btn btn-lg btn-block btn-primary" value="Unirse a Partida"/>
+    </div>
+    </div>
     </div>
 
     <!-- -->
@@ -62,14 +88,43 @@
     <div id="nuevo-juego">
       <form class="form-horizontal" role="form">
         <div class="form-group">
-          <label class="control-label col-sm-4" for="nombre_del_juego">Escriba el nombre del juego: </label>
-          <div class="col-sm-4">
+          <label class="control-label col-md-4" for="nombre_del_juego">Escriba el nombre del juego: </label>
+          <div class="col-md-4">
             <input type="text" class="form-control" id="nombre-juego">
           </div>
         </div>
+        <div class="form-group">
+          <label class="control-label col-md-4" for="n">N: </label>
+          <div class="col-md-3">
+            <select class="selectpicker" id="n">
+              <option value="4">4 Filas</option>
+              <option value="5">5 Filas</option>
+              <option value="6">6 Filas</option>
+              <option value="7">7 Filas</option>
+              <option value="8">8 Filas</option>
+              <option value="9">9 Filas</option>
+              <option value="10">10 Filas</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-4" for="m">M: </label>
+          <div class="col-md-3">
+            <select class="selectpicker" id="m">
+              <option value="4">4 Columnas</option>
+              <option value="5">5 Columnas</option>
+              <option value="6">6 Columnas</option>
+              <option value="7">7 Columnas</option>
+              <option value="8">8 Columnas</option>
+              <option value="9">9 Columnas</option>
+              <option value="10">10 Columnas</option>
+            </select>
+          </div>
+        </div>
         <div class="form-group"> 
-          <div class="col-sm-offset-4 col-sm-4">
-            <button id="crear-juego" class="btn btn-success">Crear</button>
+          <div class="col-md-offset-4 col-md-4">
+            <button id="crear-juego" class="btn btn-success btn-lg">Iniciar Juego</button>
+            <button class="btn btn-warning btn-lg"onclick="location.reload();">Regresar</button>
           </div>
         </div>
       </form>
@@ -80,20 +135,22 @@
 
 
     <div id="seccion-union">
-      <select class="selectpicker" id="lista-juegos">
-
-      </select>
-      <button class="btn btn-md btn-warning" id="unir-juego">Unirse</button>
+      <select class="selectpicker" id="lista-juegos"></select>
+      <button class="btn btn-lg btn-info" id="unir-juego">Unirse</button>
+      <button class="btn btn-warning btn-lg"onclick="location.reload();">Regresar</button>
 
     </div>
 
 
     <div id="juego">
-      <div class="col-xs-12 col-sm-4">
+      <div class="col-sm-12 col-md-4">
+        <div id="turno"></div>
         <div id="mensaje-juego">
+
         </div>
+
       </div>
-      <div class="col-xs-12 col-sm-8">
+      <div class="col-sm-12 col-md-8">
         <div id="tablero">
         </div>
       </div>
@@ -101,6 +158,10 @@
 
 
 
+  </div>
+  <div class="footer">
+  <p>&copy 2016 Brian Flores González y Alejandro Rojas Cepeda</p>
+  <p>ITESM CEM - Desarrollo de Aplicaciones Web</p>
   </div>
 
   </body>

@@ -75,20 +75,25 @@ function invocadorServicioWeb(host) {
 function crearJuego() {
 
   imprimirNl();
-  imprimir('Indica el nombre del juego: ');
+  imprimir('Indica el nombre del juego y el tamaño del tablero (n y m entre 4 y 10) separados por espacios: ');
 
   stdin.once('data', data => {
-
-    let name = data.toString().trim();
+    let sep = data.toString().trim().split(" ");
+    let name = sep[0];
+    let n = sep[1];
+    let m = sep[2];
 
     if (name === '') {
       menu();
 
-    } else {
+    } else if (!n || !m || n<4 || m<4 || n>10 || m>10){
+      menu();
+
+    }else {
       servicioWeb.invocar(
         'POST',
         '/caballos/crear_juego/',
-        {'nombre': name},
+        {'nombre': name, 'n' : n, 'm' : m},
         resultado => {
 
           if (resultado.creado) {
