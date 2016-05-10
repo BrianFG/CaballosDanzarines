@@ -44,3 +44,8 @@ Si el anterior comando no funciona ya que no se esta utilizando Cloud9, teclea l
 
 Para poder ver el juego en acción es necesario abrir otra terminal para abrir un nuevo cliente de texto y jugar contra el anterior creado,
 
+## 3. Cliente web
+
+En el navegador ingrese a la liga http://localhost:3000/caballos
+		
+		Para poder jugar es necesario que el juego se corra en diferentes sesiones, un cliente en el navegador y otro como incognito por ejemplo. 
