@@ -119,8 +119,8 @@ footer {
     padding-top: 15px;
 }
 
-#botones-inicio input{
-    margin-top: 6px;
+#botones-inicio button{
+    margin-top: 10px;
     margin-left: 3px;
 
 }

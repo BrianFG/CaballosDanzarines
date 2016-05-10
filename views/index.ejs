@@ -75,10 +75,14 @@
     </div>
     <div class="col-md-4  col-sm-12" id="botones-inicio">
     <div class="col-sm-12">
-      <input id="creacion-juego" type="button" class="btn btn-lg btn-block btn-info" value="Crear Juego"/>     
+      <button id="creacion-juego" type="button" class="btn btn-lg btn-block btn-info" value="Crear Juego"> 
+      <span class="glyphicon glyphicon-plus pull-left"> </span> Nueva Partida
+      </button>    
     </div>
     <div class="col-sm-12">
-      <input id="union-juego" type="button" class="btn btn-lg btn-block btn-primary" value="Unirse a Partida"/>
+      <button id="union-juego" class="btn btn-lg btn-block btn-primary" >
+      <span class="glyphicon glyphicon-log-in pull-left"> </span> Unirse a Partida
+      </button>
     </div>
     </div>
     </div>
@@ -123,8 +127,13 @@
         </div>
         <div class="form-group"> 
           <div class="col-md-offset-4 col-md-4">
-            <button id="crear-juego" class="btn btn-success btn-lg">Iniciar Juego</button>
-            <button class="btn btn-warning btn-lg"onclick="location.reload();">Regresar</button>
+            <button id="crear-juego" class="btn btn-success btn-lg">
+            <span class="glyphicon glyphicon-play pull-left"> </span>
+             Iniciar Juego</button>
+            <button class="btn btn-warning btn-lg"onclick="location.reload();">
+            <span class="glyphicon glyphicon-remove-sign pull-left"> </span>
+             Regresar
+            </button>
           </div>
         </div>
       </form>
@@ -136,8 +145,12 @@
 
     <div id="seccion-union">
       <select class="selectpicker" id="lista-juegos"></select>
-      <button class="btn btn-lg btn-info" id="unir-juego">Unirse</button>
-      <button class="btn btn-warning btn-lg"onclick="location.reload();">Regresar</button>
+      <button class="btn btn-lg btn-info" id="unir-juego">
+         <span class="glyphicon glyphicon-log-in pull-left"> Unirse</span>
+      </button>
+      <button class="btn btn-warning btn-lg"onclick="location.reload();">
+      <span class="glyphicon glyphicon-remove-sign pull-left"> Regresar</span>
+      </button>
 
     </div>
 
